@@ -80,5 +80,5 @@ export const apiRequest = async (
  * Log out current user on backend
  */
 export const logoutUser = async (): Promise<void> => {
-  await apiRequest("/logout", { method: "POST" });
+  await apiRequest("/auth/logout", { method: "POST" });
 };
