@@ -24,6 +24,7 @@ export default function AddExpense() {
   const { activeHousehold } = useHousehold();
   const [members, setMembers] = useState<Member[]>([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
+  const [membersError, setMembersError] = useState<string | null>(null);
 
   // Fetch household members from API
   useEffect(() => {
@@ -34,16 +35,17 @@ export default function AddExpense() {
 
     const fetchMembers = async () => {
       setLoadingMembers(true);
+      setMembersError(null);
       try {
         const memberData = await householdAPI.getHouseholdMembers(activeHousehold.id);
-        // Transform MemberDTO to Member format
         const transformedMembers: Member[] = memberData.map((m) => ({
           id: m.memberId,
           name: m.fullName,
         }));
         setMembers(transformedMembers);
       } catch (error) {
-        console.error("Failed to fetch household members:", error);
+        const msg = error instanceof Error ? error.message : "Failed to load participants";
+        setMembersError(msg);
         setMembers([]);
       } finally {
         setLoadingMembers(false);
@@ -371,12 +373,23 @@ export default function AddExpense() {
               {/* Participants */}
               <div>
                 <MultiSelect
-                  label="Participants"
+                  label={`Participants${loadingMembers ? " (loading…)" : ""}`}
                   options={memberMultiOptions}
                   defaultSelected={participants}
                   onChange={(values) => setParticipants(values)}
+                  disabled={loadingMembers}
                 />
-                {!isParticipantsValid && (
+                {membersError && (
+                  <p className="mt-2 text-sm text-red-500">
+                    Could not load members: {membersError}
+                  </p>
+                )}
+                {!loadingMembers && !membersError && members.length === 0 && activeHousehold && (
+                  <p className="mt-2 text-sm text-gray-400">
+                    No members found in this household.
+                  </p>
+                )}
+                {!isParticipantsValid && !loadingMembers && (
                   <p className="mt-2 text-sm text-red-500">
                     Select at least one participant.
                   </p>
