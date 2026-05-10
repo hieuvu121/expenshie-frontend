@@ -64,7 +64,7 @@ export const householdAPI = {
    * Get all household members for a household
    */
   getHouseholdMembers: async (householdId: number | string): Promise<MemberDTO[]> => {
-    const response = await apiRequest(`/member/${householdId}/members`);
+    const response = await apiRequest(`/households/${householdId}/members`);
     return response.json();
   },
 
@@ -119,7 +119,7 @@ export const householdAPI = {
   createExpenseWithAI: async (householdId: number | string, paragraph: string) => {
     const response = await apiRequest(`/households/${householdId}/expenses/ai`, {
       method: "POST",
-      body: JSON.stringify(paragraph),
+      body: JSON.stringify({ prompt: paragraph }),
     });
     return response.json();
   },
