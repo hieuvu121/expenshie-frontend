@@ -12,7 +12,10 @@ interface CreateExpenseRequestDTO {
   description?: string;
   currency: string;
   method: string;
-  splits: SplitRequestDTO[];
+  // Optional on the wire: EditExpense omits it when the household has no
+  // participants. Note the backend still rejects a request with no splits
+  // ("Must have at least 1 splits") — see ExpenseValidation.
+  splits?: SplitRequestDTO[];
 }
 
 interface MemberDTO {

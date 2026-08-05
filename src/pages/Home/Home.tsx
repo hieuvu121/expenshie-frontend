@@ -257,8 +257,8 @@ export default function Home() {
   return (
     <>
       <PageMeta
-        title="React.js Expense Dashboard | TailAdmin - React.js Admin Dashboard Template"
-        description="This is React.js Expense Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+        title="Dashboard | Expenshie"
+        description="Household spending overview: recent expenses, pending approvals, monthly totals and AI insights."
       />
 
       {/* Header Section with Join Group Button and Create Group Button */}

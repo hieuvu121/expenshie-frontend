@@ -168,7 +168,7 @@ export default function EditExpense() {
 
       setSuccessMessage("Expense updated successfully!");
       setTimeout(() => {
-        navigate("/basic-tables");
+        navigate("/expenses");
       }, 1500);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Failed to update expense.");
@@ -183,7 +183,7 @@ export default function EditExpense() {
         No expense data found.{" "}
         <button
           className="text-brand-500 underline"
-          onClick={() => navigate("/basic-tables")}
+          onClick={() => navigate("/expenses")}
         >
           Go back to Expense List
         </button>
@@ -366,7 +366,7 @@ export default function EditExpense() {
               </button>
               <button
                 type="button"
-                onClick={() => navigate("/basic-tables")}
+                onClick={() => navigate("/expenses")}
                 className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-white/[0.03]"
               >
                 Cancel

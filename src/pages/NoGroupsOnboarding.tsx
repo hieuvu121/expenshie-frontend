@@ -24,7 +24,7 @@ export default function NoGroupsOnboarding() {
   return (
     <>
       <PageMeta
-        title="Welcome | TailAdmin - React.js Admin Dashboard Template"
+        title="Get Started | Expenshie"
         description="Create or join a group to get started"
       />
 

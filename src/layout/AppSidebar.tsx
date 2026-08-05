@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
-// Assume these icons are imported from an icon library
 import {
-  CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
-  PageIcon,
   TableIcon,
   UserCircleIcon,
   TaskIcon,
@@ -22,44 +19,33 @@ type NavItem = {
   subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
 };
 
+// Paths are absolute so they match location.pathname in isActive() below.
+// (They were relative before, which meant no item ever rendered as active.)
 const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Home",
-    path:"/",
+    path: "/",
   },
   {
-    name: "Expense Form",
+    name: "Add Expense",
     icon: <ListIcon />,
-    path: "form-elements",
+    path: "/expenses/new",
   },
   {
-    name: "Expense List",
+    name: "Expenses",
     icon: <TableIcon />,
-    path: "basic-tables",
+    path: "/expenses",
   },
   {
     name: "Settlements",
     icon: <TaskIcon />,
-    path: "settlements",
-  },
-  {
-    icon: <CalenderIcon />,
-    name: "Calendar",
-    path: "calendar",
+    path: "/settlements",
   },
   {
     icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "profile",
-  },
-  {
-    name: "Pages",
-    icon: <PageIcon />,
-    subItems: [
-      { name: "Blank Page", path: "blank", pro: false },
-      { name: "404 Error", path: "error-404", pro: false },
-    ],
+    name: "Profile",
+    path: "/profile",
   },
 ];
 
@@ -321,8 +307,6 @@ const AppSidebar: React.FC = () => {
             </div>
           </div>
         </nav>
-
-        {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
       </div>
     </aside>
   );

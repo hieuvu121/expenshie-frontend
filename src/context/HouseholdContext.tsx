@@ -27,8 +27,6 @@ export const HouseholdProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [activeHousehold, setActiveHouseholdState] = useState<Household | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
-
 
   /**
    * Fetch households from backend
@@ -39,7 +37,7 @@ export const HouseholdProvider: React.FC<{ children: ReactNode }> = ({ children 
 
     if (!isAuthenticated()) {
       setHouseholds([]);
-      setActiveHousehold(null);
+      setActiveHouseholdState(null);
       setIsLoading(false);
       return;
     }
@@ -105,7 +103,7 @@ export const HouseholdProvider: React.FC<{ children: ReactNode }> = ({ children 
    */
   const clearHouseholds = () => {
     setHouseholds([]);
-    setActiveHousehold(null);
+    setActiveHouseholdState(null);
     localStorage.removeItem("activeHouseholdId");
     localStorage.removeItem("memberId");
     localStorage.removeItem("memberRole");

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { clearAuthSession, logoutUser } from "../../services/coreApi";
 
 export default function UserDropdown() {

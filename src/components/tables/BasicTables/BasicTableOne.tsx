@@ -218,7 +218,7 @@ export default function BasicTableOne() {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => navigate("/edit-expense", { state: { expense: exp } })}
+                            onClick={() => navigate("/expenses/edit", { state: { expense: exp } })}
                             disabled={actionLoadingId === exp.id}
                           >
                             Edit
