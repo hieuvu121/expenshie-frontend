@@ -6,8 +6,11 @@ RUN npm ci
 
 COPY . .
 ENV NODE_OPTIONS=--max-old-space-size=2048
-# Must be a production build: --mode development made Vite load .env.development,
-# which baked http://localhost:8080 in as the API base URL of the shipped image.
+
+# No API URL is baked in: the app calls a same-origin /app/v1 which nginx
+# proxies to the gateway (see nginx.conf), so this image runs unchanged on any
+# host or port. Must stay a production build — --mode development previously
+# loaded .env.development and applied the dev-only /TailAdmin/ base path.
 RUN npm run build
 
 FROM nginx:alpine

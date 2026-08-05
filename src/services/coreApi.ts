@@ -1,5 +1,11 @@
-// Use the configured backend URL, falling back to local API when unset.
-const DEFAULT_API_BASE_URL = "http://localhost:8080/app/v1";
+// Same-origin by default: nginx (prod) and the Vite dev server both proxy
+// /app/v1 to the API gateway, so no host is baked into the bundle. That keeps
+// one image usable on any host or port, and means the browser never makes a
+// cross-origin request — no CORS involved.
+//
+// VITE_API_BASE_URL still overrides it, for pointing a local dev server at a
+// remote backend.
+const DEFAULT_API_BASE_URL = "/app/v1";
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL;
 

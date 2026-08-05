@@ -1,5 +1,3 @@
-import { API_BASE_URL } from "./coreApi";
-
 export interface ExpenseSocketEventData {
   id?: number;
   amount?: number | string | null;
@@ -22,13 +20,17 @@ export interface ReceivedExpenseSocketEvent extends ExpenseSocketEvent {
   receivedAt: number;
 }
 
-const normalizePath = (pathname: string) => pathname.replace(/\/$/, "");
-
+/**
+ * STOMP endpoint. notification-service registers it at /ws and the gateway
+ * routes /ws/** there, so the path is /ws — NOT under the /app/v1 API prefix.
+ * (It previously derived `<apiBase>/chat`, which matched no gateway route.)
+ *
+ * Resolved against the page origin so it follows whatever host and scheme the
+ * app is served from, and upgrades to wss: automatically under HTTPS.
+ */
 export const getExpenseWebSocketUrl = () => {
-  const apiUrl = new URL(API_BASE_URL, window.location.origin);
-  const basePath = normalizePath(apiUrl.pathname);
-  const websocketPath = `${basePath}/chat`.replace(/\/{2,}/g, "/");
-  const websocketProtocol = apiUrl.protocol === "https:" ? "wss:" : "ws:";
+  const origin = new URL(window.location.origin);
+  const protocol = origin.protocol === "https:" ? "wss:" : "ws:";
 
-  return `${websocketProtocol}//${apiUrl.host}${websocketPath}`;
+  return `${protocol}//${origin.host}/ws`;
 };
