@@ -3,9 +3,13 @@ import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
-import ExpenseList from "./pages/ExpenseList/ExpenseList";
-import AddExpense from "./pages/Forms/FormElements";
+import LineChart from "./pages/Charts/LineChart";
+import BarChart from "./pages/Charts/BarChart";
+import Calendar from "./pages/Calendar";
+import BasicTables from "./pages/ExpenseList/ExpenseList";
+import FormElements from "./pages/Forms/FormElements";
 import EditExpense from "./pages/Forms/EditExpense";
+import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
 import MinimalLayout from "./layout/MinimalLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
@@ -24,20 +28,28 @@ export default function App() {
             <Route index element={<NoGroupsOnboarding />} />
           </Route>
 
-          {/* Application shell */}
+          {/* Homepage Layout */}
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
 
-            {/* Expenses */}
-            <Route path="expenses" element={<ExpenseList />} />
-            <Route path="expenses/new" element={<AddExpense />} />
-            <Route path="expenses/edit" element={<EditExpense />} />
+            {/* Others Page */}
+            <Route path="profile" element={<UserProfiles />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="blank" element={<Blank />} />
+
+            {/* Forms */}
+            <Route path="form-elements" element={<FormElements />} />
+            <Route path="edit-expense" element={<EditExpense />} />
+
+            {/* Tables */}
+            <Route path="basic-tables" element={<BasicTables />} />
 
             {/* Settlements */}
             <Route path="settlements" element={<Settlements />} />
 
-            {/* Account */}
-            <Route path="profile" element={<UserProfiles />} />
+            {/* Charts */}
+            <Route path="line-chart" element={<LineChart />} />
+            <Route path="bar-chart" element={<BarChart />} />
           </Route>
 
           {/* Auth Layout */}
