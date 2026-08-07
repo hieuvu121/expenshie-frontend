@@ -1,0 +1,27 @@
+# Keeps the build context to source only. Without this, `COPY . .` in the
+# Dockerfile ships node_modules and dist into the builder — slow, and it lets
+# untracked local files affect a build that CI (which copies from a git
+# checkout) would never see.
+
+node_modules
+dist
+.vite
+
+.git
+.github
+.gitignore
+README.md
+
+# macOS/Finder duplicate files — "HouseholdContext 2.tsx" once broke the image
+# build here: nothing imported it, but `tsc -b` type-checks every file it finds.
+**/* [0-9].*
+.DS_Store
+
+# The image is deliberately host-agnostic: coreApi.ts falls back to a
+# same-origin /app/v1 that nginx proxies, so no VITE_API_BASE_URL should ever
+# be baked in. Excluding these makes that guarantee instead of a convention.
+.env
+.env.*
+
+# The stray copy of nginx.conf; the Dockerfile only ever copies nginx.conf.
+nginx [0-9].conf
